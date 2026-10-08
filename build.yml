@@ -1,0 +1,31 @@
+name: Build Windows app
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Download the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build the installer
+        working-directory: electron
+        run: |
+          npm install
+          npm run dist
+
+      - name: Save the exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: AnimeStream-Windows
+          path: electron/dist/*.exe
+          if-no-files-found: error
