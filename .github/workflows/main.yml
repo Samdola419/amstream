@@ -26,6 +26,6 @@ jobs:
       - name: Save the exe
         uses: actions/upload-artifact@v4
         with:
-          name: AM-Stream
+          name: AM Stream
           path: electron/dist/*.exe
           if-no-files-found: error
